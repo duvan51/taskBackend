@@ -1,0 +1,71 @@
+@apiusers= http://localhost:4000/Users
+
+###  -- Instituciones   -- ###
+
+GET {{apiusers}}
+
+
+
+###----- 
+POST {{apiusers}}
+Content-Type: application/json
+
+{
+    "Name": "duvan aponte",
+    "whattsap": "3204621623",
+    "email": "duvan.aponte@psb.edu.co",
+    "identificacion": "1234789149",
+    "password": "0000"
+}
+
+
+########## ----- proyects ------- #######
+@apiproyects= http://localhost:4000/proyects
+
+
+###----- 
+POST {{apiproyects}}
+Content-Type: application/json
+
+{
+    "Name": "duvan aponte",
+    "dateCreated": "10/09/2024",
+    "userCreated": 1,
+    "DateFinally": "10/09/2024",
+    "description": "sdcsdc sdcsdcsdc sdcsdcsd sdcsdcscsd"
+}
+
+
+
+########## ----- Tasks ------- #######
+@apitasks= http://localhost:4000/tasks
+
+
+###----- 
+POST {{apitasks}}
+Content-Type: application/json
+
+{
+    "Name": "duvan aponte",
+    "dateCreated": "10/09/2024",
+    "DateFinally": "10/09/2024",
+    "description": "sdcsdc sdcsdcsdc sdcsdcsd sdcsdcscsd",
+    "ProyectsTasks": 1,
+    "state": "programada"
+}
+
+
+########## ----- Tasks ------- #######
+@apitasksu= http://localhost:4000/tasks/2
+
+
+###----- 
+PUT {{apitasksu}}
+Content-Type: application/json
+
+{
+    "Name": "diseno UX",
+    "DateFinally": "10/09/2028",
+    "description": "sdcsdc sdcsdcsdc sdcsdcsd sdcsdcscsd",
+    "state": "proceso"
+}
