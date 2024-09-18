@@ -1,4 +1,6 @@
 import db from '../models/index.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 
 
@@ -73,6 +75,16 @@ export const createUser = async(req, res)=>{
             password
 
         } = req.body;
+
+        //verificamos is el email ya existe
+        const existingUser = await db.User.findOne({ where: { email } });
+        if(existingUser){
+            return res.status(400).json({ error: 'El email ya está registrado' });
+        }
+
+        //hasheamos la contrasena
+        const hashedPassword = await bcrypt.hash(password, 10);
+
         const newUser = await db.User.create({
             Name,
             lastName,
@@ -81,7 +93,7 @@ export const createUser = async(req, res)=>{
             identificacion,
             email,
             photo,
-            password
+            password: hashedPassword
         })
         res.status(201).json(newUser)
     } catch (error) {
@@ -90,3 +102,36 @@ export const createUser = async(req, res)=>{
     }
 }
 
+
+export const login = async(req, res)=>{
+    const secret_key = 's5h9$Lk29jP2!7Dszm2?GdL8wT4N&XJ@'
+    try {
+        const {
+            email,
+            password
+        } = req.body;
+        // Buscar el usuario en la base de datos por email
+        const user = await db.User.findOne({ where: { email } });
+   
+        if (!user) {
+        return res.status(400).json({ error: 'Usuario no encontrado' });
+        }
+        
+        //comparar la contrasenaalmacenada 
+        const isMatch = await bcrypt.compare(password, user.password);
+        
+        if (!isMatch) {
+            return res.status(400).json({ error: 'Contraseña incorrecta' });
+
+          }
+
+
+         // Generar token JWT
+        const token = jwt.sign({ id: user.id, email: user.email }, secret_key, { expiresIn: '1h' });
+
+        res.json({ token, userId :user.id  });
+
+    } catch (error) {
+        
+    }
+}

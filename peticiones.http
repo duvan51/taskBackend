@@ -56,7 +56,7 @@ Content-Type: application/json
 
 
 ########## ----- Tasks ------- #######
-@apitasksu= http://localhost:4000/tasks/2
+@apitasksu= http://localhost:4000/tasks/1
 
 
 ###----- 
@@ -64,8 +64,24 @@ PUT {{apitasksu}}
 Content-Type: application/json
 
 {
-    "Name": "diseno UX",
-    "DateFinally": "10/09/2028",
-    "description": "sdcsdc sdcsdcsdc sdcsdcsd sdcsdcscsd",
-    "state": "proceso"
+    "state": "programada"
 }
+
+
+
+########## ----- Tasks ------- #######
+
+
+
+
+
+###----- 
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrZXZpbkBnbWFpbC5jb20iLCJpYXQiOjE3MjY2MDQ5OTQsImV4cCI6MTcyNjYwODU5NH0.CSvp12jkY-Z6LsJ0nVnnhMpetN7hzm0U9e8moHw1WAI
+@apitasksu= http://localhost:4000/users/3
+GET {{apitasksu}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+
+########## ----- Tasks ------- #######
