@@ -4,36 +4,21 @@ const RecoursesTasksModel = (sequelize, DataTypes) =>{
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true
-      },
-      typeOfRecourse:{
-        type: DataTypes.ENUM('image','doc','video','mp3','dibujo','rar','link'),
-        allowNull: false
+        primaryKey: true,
     },
-    image:{
-        type: DataTypes.STRING,
-        allowNull: false
+    typeOfRecourse: {
+        type: DataTypes.ENUM('image', 'doc', 'video', 'mp3', 'dibujo', 'rar', 'link'),
+        allowNull: false,
     },
-    doc:{
-        type: DataTypes.STRING,
+    resourcePath: {
+        type: DataTypes.JSON,
         allowNull: false
+
     },
-    mp3:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    dibujo:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    rar:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    link:{
-        type: DataTypes.STRING,
-        allowNull: false
-    }
+    TaskId: {
+        type: DataTypes.INTEGER,
+        allowNull: false, // Obligatorio como clave foránea
+        },
     },
     {
         tableName: 'RecoursesTasks', // Especifica el nombre de la tabla existente

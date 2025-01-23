@@ -11,7 +11,7 @@ const ProyectsModel = (sequelize, DataTypes) =>{
         allowNull: false
     },
     description:{
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT('long'),
         allowNull: false
     },
     dateCreated:{

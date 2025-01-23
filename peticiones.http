@@ -46,25 +46,35 @@ POST {{apitasks}}
 Content-Type: application/json
 
 {
-    "Name": "duvan aponte",
+    "Name": "hacer caca",
     "dateCreated": "10/09/2024",
     "DateFinally": "10/09/2024",
     "description": "sdcsdc sdcsdcsdc sdcsdcsd sdcsdcscsd",
     "ProyectsTasks": 1,
-    "state": "programada"
+    "state": "programada",
+    "Users": [
+        "duvan@gmail.com"
+    ]
 }
 
 
+
+
+
+
 ########## ----- Tasks ------- #######
-@apitasksu= http://localhost:4000/tasks/1
+@apitasksu= http://localhost:4000/tasks/2
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdXZhbkBnbWFpbC5jb20iLCJpYXQiOjE3MzUyMDI2MTIsImV4cCI6MTczNTIwNjIxMn0.DGCMAwGYJ7V5iu093kgZ7q6A8XNhQr5SpoDtByduqJ0
 
 
 ###----- 
 PUT {{apitasksu}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-    "state": "programada"
+    "Name": "esta fue modificada",
+    "description":"esto tambien fue modificado"
 }
 
 
@@ -85,3 +95,38 @@ Authorization: Bearer {{token}}
 
 
 ########## ----- Tasks ------- #######
+
+
+
+########## ----- comment------- #######
+@apitasks= http://localhost:4000/coment
+
+
+###----- 
+POST {{apitasks}}
+Content-Type: application/json
+
+{
+    "Content": "no me parece que gacer caca",
+    "dateCreated": "10/09/2024",
+    "dateUpdate": "10/09/2024",
+    "UserId": 1,
+    "photo":"",
+    "tasksId":1
+}
+
+########## ----- comment------- #######
+@apitasks= http://localhost:4000/recourses
+
+
+###----- 
+POST {{apitasks}}
+Content-Type: application/json
+
+{
+    "typeOfRecourse": "image",
+    "resourcePath": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTFzOjoyo9oBABS6TE2RGgcYRWMHdLzoK7qFN0m0KAFdifwTBD1darNk_gJ_0YsJuCcJHi9HgnYSdf9XUPvwWL_zOrbFdOydm0iCQGwcg",
+    "TaskId": 1
+}
+
+            

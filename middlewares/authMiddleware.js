@@ -5,7 +5,7 @@ const verifyToken = (req, res, next)=>{
   // 1. Obtener el encabezado de autorización
   const authHeader = req.headers['authorization']; // Corrección aquí (headers con 's')
   
-  console.log('Authorization Header:', authHeader); // Para depurar
+ // console.log('Authorization Header:', authHeader); // Para depurar
 
   // 2. Verificar si el encabezado existe y está en el formato correcto
   if (!authHeader) {
@@ -21,7 +21,7 @@ const verifyToken = (req, res, next)=>{
   }
 
   const token = tokenParts[1]; // El verdadero token después de 'Bearer'
-  console.log('Token:', token); // Para depurar
+ // console.log('Token:', token); // Para depurar
 
   // 5. Verificar y decodificar el token
   jwt.verify(token, 's5h9$Lk29jP2!7Dszm2?GdL8wT4N&XJ@', (err, decoded) => {
@@ -32,6 +32,7 @@ const verifyToken = (req, res, next)=>{
 
     // 6. Si el token es válido, añadir la información del usuario decodificado a la solicitud
     req.user = decoded;
+    console.log(req.user)
 
     // 7. Continuar con el siguiente middleware o controlador
     next();

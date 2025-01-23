@@ -1,3 +1,4 @@
+import { where } from 'sequelize';
 import db from '../models/index.js';
 
 
@@ -5,7 +6,11 @@ import db from '../models/index.js';
 export const getAllTasks = async (req, res)=>{
     try {
         const Tasks = await db.Tasks.findAll({
-            order: [['order', 'ASC']]
+            order: [['order', 'ASC']],
+            include: {
+              model: db.User,
+              as: 'Users'
+            }
         });
         res.status(200).json(Tasks)
     } catch (error) {
@@ -13,10 +18,26 @@ export const getAllTasks = async (req, res)=>{
     }
 }
 
+
 export const getTaskById = async (req, res)=>{
     try {
         const {id} = req.params;
-        const Task = await db.Tasks.findByPk(id);
+        const Task = await db.Tasks.findByPk(id, {
+          include: [
+            {
+            model: db.User, // Para cada tarea, también incluye los usuarios asociados
+            as: 'Users',
+            },
+            {
+              model: db.Coment // Para cada tarea, también incluye los usuarios asociados
+            },
+            {
+              model: db.RecoursesTasks,
+              as: 'Recursos',
+            }
+
+          ],
+        });
         if (Task) {
             res.status(200).json(Task); // Devolver el usuario si se encuentra
         } else {
@@ -35,17 +56,29 @@ export const createTask = async(req, res)=>{
             dateCreated,
             DateFinally,
             state,
-            ProyectsTasks
+            ProyectsTasks,
+            Users
 
         } = req.body;
+
+        const userToAssociate = await db.User.findAll({
+          where:{
+            email: Users
+          }
+        })
+
         const newTask = await db.Tasks.create({
             Name,
             description,
             dateCreated,
             DateFinally,
             state,
-            ProyectsTasks
+            ProyectsTasks,
+            Users
+
         })
+        await newTask.setUsers(userToAssociate)
+
         res.status(201).json(newTask)
     } catch (error) {
         

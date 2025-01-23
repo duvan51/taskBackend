@@ -3,6 +3,7 @@ import config from '../config/config.js';
 import ProyectsModel from './proyects.js';
 import ProyectsTaskModel from './proyectsTasks.js';
 import RecoursesTaskModel from './recoursesTasks.js';
+import ComentModel from './coments.js';
 import TasksModel from './Tasks.js';
 import TeamsModel from './teams.js';
 import UserModel from './user.js';
@@ -10,8 +11,16 @@ import UserModel from './user.js';
 
 
 
-const env = 'development';
+
+
+// Obtener el entorno actual (development o production)
+const env = process.env.NODE_ENV || 'development';
+
+
 const dbConfig = config[env];
+
+
+
 
 //start database connect
 
@@ -27,11 +36,6 @@ try {
 }
 
 
-
-
-
-
-
 // End database connect
 const User = UserModel(sequelize, Sequelize.DataTypes);
 const Proyects = ProyectsModel(sequelize, Sequelize.DataTypes);
@@ -39,8 +43,25 @@ const ProyectsTasks = ProyectsTaskModel(sequelize, Sequelize.DataTypes);
 const RecoursesTasks = RecoursesTaskModel(sequelize, Sequelize.DataTypes);
 const Tasks = TasksModel(sequelize, Sequelize.DataTypes);
 const Teams = TeamsModel(sequelize, Sequelize.DataTypes);
+
+const Coment = ComentModel(sequelize, Sequelize.DataTypes);
+
+
+
+
 //modelos de relaciones
 
+//Relacion de comentarios
+Coment.belongsTo(User, {foreignKey: 'UserId'}) //un usuario puede hacer muchos comentarios
+User.hasMany(Coment, {foreignKey: 'UserId'}) //un comentario pertenece a un usuario
+
+Tasks.hasMany(Coment, {foreignKey: 'tasksId'}) //un usuario puede hacer muchos comentarios
+Coment.belongsTo(Tasks, {foreignKey: 'tasksId'}) //un comentario pertenece a un usuario
+
+
+
+
+// usuario a proyectos
 
 User.hasMany(Proyects, {foreignKey: 'UserProyects'}); //un usuario tieene muchos proyectos
 Proyects.belongsTo(User, {foreignKey: 'UserProyects'}); //un proyecto pertenece a un usuario
@@ -66,8 +87,8 @@ ProyectsTasks.belongsTo(Proyects,{foreignKey: 'ProyectsProyectsTasks'})
 Proyects.hasMany(Tasks, {foreignKey: 'ProyectsTasks'})
 Tasks.belongsTo(Proyects, {foreignKey: 'ProyectsTasks'})
 
-Tasks.hasMany(RecoursesTasks, {foreignKey: 'ProyectsTasks'})
-RecoursesTasks.belongsTo(Tasks, {foreignKey: 'ProyectsTasks'})
+Tasks.hasMany(RecoursesTasks, { foreignKey: 'TaskId', as: 'Recursos' })
+RecoursesTasks.belongsTo(Tasks, { foreignKey: 'TaskId', as: 'Tarea' })
 
 
 
@@ -96,7 +117,8 @@ const db = {
   ProyectsTasks,
   RecoursesTasks,
   Tasks,
-  Teams
+  Teams,
+  Coment
   
 
 }; // db se define aquí

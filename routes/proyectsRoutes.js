@@ -2,9 +2,11 @@ import express from 'express';
 import { 
         getAllProyects,
         createProyect,
-        getProyectsTasksById
+        getProyectsTasksById,
+        getProyectsTasksByIdByTask
         
 } from '../controllers/proyectsController.js';
+import verifyToken from '../middlewares/authMiddleware.js';
 
 
 const router = express.Router();
@@ -14,7 +16,8 @@ const router = express.Router();
 
 
 router.get('/', getAllProyects);
-router.get('/:id', getProyectsTasksById);
+router.get('/:id',verifyToken, getProyectsTasksById);
+router.get('/shared/:id',verifyToken, getProyectsTasksByIdByTask);
 router.post('/', createProyect);
 
 

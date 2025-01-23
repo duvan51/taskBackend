@@ -1,18 +1,53 @@
-export default  {
+import dotenv from 'dotenv';
 
+// Obtener el entorno actual (development o production)
+const env = process.env.NODE_ENV || 'development';
 
-    "development": {
-      "username": "root",
-      "password": "duvan1234789149",
-      "database": "taskMaster",
-      "host": "localhost",
-      "port": "33060",
-      "dialect": "mysql",
-      "dialectOptions": {
-        "connectTimeout": 60000 // Aumenta el tiempo de espera de conexión si es necesario
-        }
-    }
+// Cargar el archivo `.env` correspondiente al entorno
+if (env === 'production') {
+  dotenv.config({ path: '.env.production' });
+  console.log('estamos en produccion')
+} else {
+  dotenv.config({ path: '.env.development' });
+  console.log('estamos en desarrollo')
 }
+
+
+
+
+
+
+
+const config = {
+  development: {
+    username: process.env.DEV_DB_USERNAME,
+    password: process.env.DEV_DB_PASSWORD,
+    database: process.env.DEV_DB_NAME,
+    host: process.env.DEV_DB_HOST,
+    port: process.env.DEV_DB_PORT || 3306,
+    dialect: 'mysql',
+    dialectOptions: {
+      connectTimeout: 60000,
+    },
+  },
+  production: {
+    username: process.env.PROD_DB_USERNAME,
+    password: process.env.PROD_DB_PASSWORD,
+    database: process.env.PROD_DB_NAME,
+    host: process.env.PROD_DB_HOST,
+    port: process.env.PROD_DB_PORT,
+    dialect: 'mysql',
+    dialectOptions: {
+      connectTimeout: 60000,
+    },
+  },
+};
+
+export default config;
+
+
+
+
 
 
 /**
@@ -24,17 +59,7 @@ export default  {
  * 
  * 
  * 
-    "development": {
-      "username": "fqndxv8zz8apwgfl",
-      "password": "ug2hpvwm7kkypeeu",
-      "database": "vlnppj4gg5igazuy",
-      "host": "zj2x67aktl2o6q2n.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-      "port": "3306",
-      "dialect": "mysql",
-      "dialectOptions": {
-        "connectTimeout": 60000 // Aumenta el tiempo de espera de conexión si es necesario
-        }
-    }
+   
  * 
  * 
  * 
