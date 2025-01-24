@@ -14,14 +14,13 @@ import UserModel from './user.js';
 
 
 // Obtener el entorno actual (development o production)
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
 
 
 const dbConfig = config[env];
 
 
-
-
+console.log(dbConfig)
 //start database connect
 
 let sequelize;
@@ -95,7 +94,7 @@ RecoursesTasks.belongsTo(Tasks, { foreignKey: 'TaskId', as: 'Tarea' })
 
 
 
-const encender = true; // Cambia esto a false para no sincronizar
+const encender = false; // Cambia esto a false para no sincronizar
 
 if (encender) {
   try {
