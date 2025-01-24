@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 
 // Obtener el entorno actual (development o production)
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
 
 // Cargar el archivo `.env` correspondiente al entorno
 if (env === 'production') {
@@ -11,11 +11,6 @@ if (env === 'production') {
   dotenv.config({ path: '.env.development' });
   console.log('estamos en desarrollo')
 }
-
-
-
-
-
 
 
 const config = {
@@ -42,6 +37,8 @@ const config = {
     },
   },
 };
+
+//console.log(config)
 
 export default config;
 

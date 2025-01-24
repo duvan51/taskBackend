@@ -30,8 +30,9 @@ sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.passwor
 
 try {
   await sequelize.authenticate();
-  console.log('Conexión establecida exitosamente');
+  console.log('Conexión establecida exitosamente', dbConfig.database);
 } catch (err) {
+  console.log('base de datos conectada=> ',dbConfig.database)
   console.error('Error al conectar a la base de datos:', err);
 }
 
@@ -94,7 +95,7 @@ RecoursesTasks.belongsTo(Tasks, { foreignKey: 'TaskId', as: 'Tarea' })
 
 
 
-const encender = false; // Cambia esto a false para no sincronizar
+const encender = true; // Cambia esto a false para no sincronizar
 
 if (encender) {
   try {

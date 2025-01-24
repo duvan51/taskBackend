@@ -19,8 +19,6 @@ app.use(cors())
 app.use(express.json());
 
 
-
-
 //redireccionamiento a la ruta de swagger
 
 
